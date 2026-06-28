@@ -5,7 +5,9 @@
   --foreground: #ededed;
 }
 
+html,
 body {
-  background: var(--background);
+  min-height: 100%;
+  background: #000;
   color: var(--foreground);
 }
