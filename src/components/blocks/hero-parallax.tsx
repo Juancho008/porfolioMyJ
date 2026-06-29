@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import {
   motion,
   useScroll,
@@ -9,7 +10,60 @@ import {
 } from "motion/react";
 
 const ROW_CLASS =
-  "flex h-96 min-h-96 mb-16 shrink-0 items-center space-x-20";
+  "flex h-48 min-h-48 mb-8 shrink-0 items-center gap-4 md:h-96 md:min-h-96 md:mb-16 md:space-x-20 md:gap-0";
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return reduced;
+}
+
+function MarqueeRow({
+  products,
+  reverse = false,
+  duration = 45,
+}: {
+  products: { title: string; link: string; thumbnail: string }[];
+  reverse?: boolean;
+  duration?: number;
+}) {
+  const reducedMotion = usePrefersReducedMotion();
+  const track = [...products, ...products];
+
+  return (
+    <div className="overflow-hidden md:hidden">
+      <motion.div
+        className="flex w-max gap-4"
+        animate={
+          reducedMotion
+            ? { x: 0 }
+            : { x: reverse ? ["0%", "-50%"] : ["-50%", "0%"] }
+        }
+        transition={
+          reducedMotion
+            ? undefined
+            : { duration, repeat: Infinity, ease: "linear" }
+        }
+      >
+        {track.map((product, index) => (
+          <ProductCard
+            key={`marquee-${index}`}
+            product={product}
+            mobile
+          />
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
 export const HeroParallax = ({
   products,
@@ -40,38 +94,43 @@ export const HeroParallax = ({
     springConfig
   );
   const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
+    useTransform(scrollYProgress, [0, 0.2], [12, 0]),
     springConfig
   );
   const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    useTransform(scrollYProgress, [0, 0.2], [0.3, 1]),
     springConfig
   );
   const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
+    useTransform(scrollYProgress, [0, 0.2], [12, 0]),
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    useTransform(scrollYProgress, [0, 0.2], [-500, 350]),
     springConfig
   );
 
   return (
-    <div
+    <section
       ref={ref}
-      className="relative flex h-[300vh] flex-col self-auto overflow-hidden py-40 antialiased [perspective:1000px] [transform-style:preserve-3d]"
+      className="relative flex h-[250vh] flex-col self-auto overflow-hidden py-16 antialiased md:h-[300vh] md:py-40 [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
-        style={{
-          rotateX,
-          rotateZ,
-          translateY,
-          opacity,
-        }}
+        style={{ rotateX, rotateZ, translateY, opacity }}
         className="flex flex-col"
       >
-        <motion.div className={`${ROW_CLASS} flex-row-reverse space-x-reverse`}>
+        {/* Mobile: carrusel horizontal automático + parallax al scrollear */}
+        <div className="flex flex-col gap-2 md:hidden">
+          <MarqueeRow products={firstRow} reverse duration={38} />
+          <MarqueeRow products={secondRow} duration={46} />
+          <MarqueeRow products={thirdRow} reverse duration={42} />
+        </div>
+
+        {/* Desktop: parallax con scroll horizontal */}
+        <motion.div
+          className={`${ROW_CLASS} hidden flex-row-reverse space-x-reverse md:flex`}
+        >
           {firstRow.map((product, index) => (
             <ProductCard
               product={product}
@@ -80,7 +139,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className={`${ROW_CLASS} flex-row`}>
+        <motion.div className={`${ROW_CLASS} hidden flex-row md:flex`}>
           {secondRow.map((product, index) => (
             <ProductCard
               product={product}
@@ -89,7 +148,9 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className={`${ROW_CLASS} flex-row-reverse space-x-reverse`}>
+        <motion.div
+          className={`${ROW_CLASS} hidden flex-row-reverse space-x-reverse md:flex`}
+        >
           {thirdRow.map((product, index) => (
             <ProductCard
               product={product}
@@ -99,17 +160,17 @@ export const HeroParallax = ({
           ))}
         </motion.div>
       </motion.div>
-    </div>
+    </section>
   );
 };
 
 export const Header = () => {
   return (
-    <div className="relative top-0 left-0 mx-auto w-full max-w-7xl px-4 py-20 md:py-40">
+    <div className="relative top-0 left-0 z-10 mx-auto w-full max-w-7xl px-4 py-10 md:py-20 lg:py-40">
       <h1 className="text-2xl font-bold md:text-7xl dark:text-white">
         Impulsamos tu <br /> presencia digital
       </h1>
-      <p className="mt-8 max-w-2xl text-base md:text-xl dark:text-neutral-200">
+      <p className="mt-4 max-w-2xl text-sm md:mt-8 md:text-xl dark:text-neutral-200">
         En M&J desarrollamos sitios web modernos, estrategias de marketing
         digital y soluciones tecnológicas diseñadas para hacer crecer tu
         negocio. Combinamos creatividad, diseño y tecnología para transformar
@@ -122,25 +183,33 @@ export const Header = () => {
 export const ProductCard = ({
   product,
   translate,
+  mobile = false,
 }: {
   product: {
     title: string;
     link: string;
     thumbnail: string;
   };
-  translate: MotionValue<number>;
+  translate?: MotionValue<number>;
+  mobile?: boolean;
 }) => {
   return (
     <motion.div
-      style={{ x: translate }}
-      whileHover={{ y: -20 }}
-      className="group/product relative h-96 w-[30rem] min-h-96 min-w-[30rem] shrink-0"
+      style={translate ? { x: translate } : undefined}
+      whileHover={mobile ? undefined : { y: -20 }}
+      className={
+        mobile
+          ? "group/product relative h-44 w-64 min-h-44 min-w-64 shrink-0 sm:h-48 sm:w-72"
+          : "group/product relative h-96 w-[30rem] min-h-96 min-w-[30rem] shrink-0"
+      }
     >
       <a
         href={product.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="relative block h-96 w-full overflow-hidden group-hover/product:shadow-2xl"
+        className={`relative block w-full overflow-hidden group-hover/product:shadow-2xl ${
+          mobile ? "h-44 sm:h-48" : "h-96"
+        }`}
       >
         <img
           src={product.thumbnail}
@@ -151,7 +220,11 @@ export const ProductCard = ({
         />
       </a>
       <div className="pointer-events-none absolute inset-0 h-full w-full bg-black opacity-0 group-hover/product:opacity-80" />
-      <h2 className="absolute bottom-4 left-4 text-white opacity-0 group-hover/product:opacity-100">
+      <h2
+        className={`absolute bottom-3 left-3 text-white opacity-0 group-hover/product:opacity-100 ${
+          mobile ? "text-xs" : "bottom-4 left-4"
+        }`}
+      >
         {product.title}
       </h2>
     </motion.div>

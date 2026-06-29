@@ -122,11 +122,11 @@ export function AboutLearnSection() {
   });
 
   return (
-    <section className="relative -mt-[25vh] overflow-hidden bg-black px-6 py-24 md:px-12 md:py-32 lg:px-20">
+    <section className="relative -mt-[72vh] overflow-hidden bg-black px-6 pb-16 pt-6 md:-mt-[25vh] md:px-12 md:py-32 lg:px-20">
       <div className="pointer-events-none absolute right-[8%] top-[12%] h-28 w-28 rounded-full bg-blue-900/25 blur-3xl" />
       <div className="pointer-events-none absolute bottom-[10%] right-[6%] h-16 w-16 rounded-2xl bg-violet-900/40 blur-2xl" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2 lg:gap-20">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-8 md:gap-16 lg:grid-cols-2 lg:gap-20">
         <motion.div
           ref={textRef}
           variants={containerVariants}
