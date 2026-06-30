@@ -6,12 +6,12 @@ export const products = [
   },
   {
     title: "MA - Beauty Business",
-    link: "#",
+    link: "https://tienda-producto-cosmetologia.vercel.app/",
     thumbnail: "/projects/beauty-business.png",
   },
   {
     title: "SV - Descargas",
-    link: "#",
+    link: "https://github.com/Juancho008/Descargador-de-video-a-audio",
     thumbnail: "/projects/sv-descargas.png",
   },
   {
@@ -21,22 +21,22 @@ export const products = [
   },
   {
     title: "Portfolio Profesional",
-    link: "#",
+    link: "https://presentacion-delta.vercel.app/",
     thumbnail: "/projects/portfolio-juan.png",
   },
   {
     title: "Mascotas en Camino",
-    link: "#",
+    link: "https://www.instagram.com/mascotasencamino.ok/",
     thumbnail: "/projects/mascotas-ambulancia.png",
   },
   {
     title: "Mascotas en Camino",
-    link: "#",
+    link: "https://www.instagram.com/mascotasencamino.ok/",
     thumbnail: "/projects/mascotas-luna.png",
   },
   {
     title: "Mascotas en Camino",
-    link: "#",
+    link: "https://www.instagram.com/mascotasencamino.ok/",
     thumbnail: "/projects/mascotas-balto.png",
   },
   {
@@ -51,27 +51,27 @@ export const products = [
   },
   {
     title: "SV - Descargas",
-    link: "#",
+    link: "https://github.com/Juancho008/Descargador-de-video-a-audio",
     thumbnail: "/projects/sv-descargas.png",
   },
   {
     title: "Mascotas en Camino",
-    link: "#",
+    link: "https://animales-rescatados.vercel.app/",
     thumbnail: "/projects/mascotas-rescate.png",
   },
   {
     title: "MA - Beauty Business",
-    link: "#",
+    link: "https://tienda-producto-cosmetologia.vercel.app/",
     thumbnail: "/projects/beauty-business.png",
   },
   {
     title: "Portfolio Profesional",
-    link: "#",
+    link: "https://presentacion-delta.vercel.app/",
     thumbnail: "/projects/portfolio-juan.png",
   },
   {
     title: "Mascotas en Camino",
-    link: "#",
+    link: "https://mascotas-en-camino-catalogo-eight.vercel.app",
     thumbnail: "/projects/mascotas-tienda.png",
   },
 ];
