@@ -329,7 +329,9 @@ export function PricingSection() {
         >
           ¿Necesitas algo a medida?{" "}
           <a
-            href="mailto:contacto@myj.com"
+            href="https://wa.me/5491122532761"
+            target="_blank"
+            rel="noopener noreferrer"
             className="cursor-pointer text-neutral-300 underline-offset-4 transition-colors hover:text-white hover:underline"
           >
             Contáctanos para una cotización personalizada
