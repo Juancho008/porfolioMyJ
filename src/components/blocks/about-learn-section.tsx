@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import {
   motion,
   useInView,
@@ -102,9 +103,12 @@ function GalleryImage({
           }}
           className="overflow-hidden rounded-3xl border border-neutral-800/80 bg-neutral-900 shadow-2xl shadow-black/50"
         >
-          <img
+          <Image
             src={src}
             alt={alt}
+            width={600}
+            height={450}
+            sizes="(max-width: 768px) 80vw, 400px"
             className="aspect-[4/3] h-full w-full object-cover"
           />
         </motion.div>

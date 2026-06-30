@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import { whatsappUrl } from "@/lib/site";
 
 const clients = [
   { name: "Mascotas en Camino", sector: "Servicios para mascotas", initial: "MC" },
@@ -112,7 +113,11 @@ export function ClientsSection() {
         >
           ¿Querés ser el próximo?{" "}
           <a
-            href="mailto:contacto@myj.com"
+            href={whatsappUrl(
+              "¡Hola M&J! Quiero hablar sobre mi proyecto. ¿Tienen disponibilidad?"
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
             className="cursor-pointer text-neutral-300 underline-offset-4 transition-colors hover:text-white hover:underline"
           >
             Hablemos de tu proyecto

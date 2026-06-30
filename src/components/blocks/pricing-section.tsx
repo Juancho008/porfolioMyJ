@@ -7,6 +7,7 @@ import {
   useScroll,
   useTransform,
 } from "motion/react";
+import { siteConfig, whatsappUrl } from "@/lib/site";
 
 const packages = [
   {
@@ -98,15 +99,13 @@ const packages = [
   },
 ];
 
-const WHATSAPP_NUMBER = "5491122532761";
-
 function buildWhatsappLink(pkg: (typeof packages)[number]) {
   const message = pkg.isDemo
     ? "¡Hola M&J! Me gustaría pedir una *demo* sin compromiso. ¿Cómo seguimos?"
     : `¡Hola M&J! Me interesa el plan *${pkg.name}* (${pkg.price}${
         pkg.currency ? ` ${pkg.currency}` : ""
       }). ¿Me dan más información?`;
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  return whatsappUrl(message);
 }
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
@@ -342,7 +341,9 @@ export function PricingSection() {
         >
           ¿Necesitas algo a medida?{" "}
           <a
-            href="https://wa.me/5491122532761"
+            href={whatsappUrl(
+              "¡Hola M&J! Necesito una cotización personalizada. ¿Me ayudan?"
+            )}
             target="_blank"
             rel="noopener noreferrer"
             className="cursor-pointer text-neutral-300 underline-offset-4 transition-colors hover:text-white hover:underline"

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import {
   motion,
   useScroll,
@@ -207,26 +208,27 @@ export const ProductCard = ({
         href={product.link}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label={`Ver proyecto ${product.title}`}
         className={`relative block w-full overflow-hidden group-hover/product:shadow-2xl ${
           mobile ? "h-44 sm:h-48" : "h-96"
         }`}
       >
-        <img
+        <Image
           src={product.thumbnail}
-          height={600}
-          width={600}
-          className="absolute inset-0 h-full w-full object-cover object-top"
           alt={product.title}
+          fill
+          sizes={mobile ? "288px" : "480px"}
+          className="object-cover object-top"
         />
       </a>
       <div className="pointer-events-none absolute inset-0 h-full w-full bg-black opacity-0 group-hover/product:opacity-80" />
-      <h2
-        className={`absolute bottom-3 left-3 text-white opacity-0 group-hover/product:opacity-100 ${
-          mobile ? "text-xs" : "bottom-4 left-4"
+      <p
+        className={`absolute bottom-3 left-3 text-white opacity-0 transition-opacity group-hover/product:opacity-100 ${
+          mobile ? "text-xs" : "bottom-4 left-4 text-sm"
         }`}
       >
         {product.title}
-      </h2>
+      </p>
     </motion.div>
   );
 };

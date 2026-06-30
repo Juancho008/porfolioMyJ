@@ -46,7 +46,7 @@ export const products = [
   },
   {
     title: "MA - Beauty Business",
-    link: "#",
+    link: "https://tienda-producto-cosmetologia.vercel.app/",
     thumbnail: "/projects/beauty-taller.png",
   },
   {
