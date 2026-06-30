@@ -21,8 +21,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Hero Parallax | Portfolio",
-  description: "Aceternity UI Hero Parallax demo",
+  title: "M&J | Marketing Web",
+  description:
+    "M&J desarrolla sitios web modernos, estrategias de marketing digital y soluciones tecnológicas para hacer crecer tu negocio.",
 };
 
 export default function RootLayout({
