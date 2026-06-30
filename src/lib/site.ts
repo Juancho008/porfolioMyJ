@@ -6,7 +6,6 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://myj-marketing.vercel.app",
   locale: "es_AR",
   whatsapp: "5491122532761",
-  whatsappDisplay: "+54 9 11 2253-2761",
   keywords: [
     "desarrollo web",
     "marketing digital",

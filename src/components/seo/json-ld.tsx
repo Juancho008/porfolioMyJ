@@ -12,7 +12,6 @@ export function JsonLd() {
         description: siteConfig.description,
         contactPoint: {
           "@type": "ContactPoint",
-          telephone: siteConfig.whatsappDisplay,
           contactType: "customer service",
           availableLanguage: ["Spanish"],
           url: whatsappUrl(),

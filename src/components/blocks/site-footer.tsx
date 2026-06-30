@@ -9,12 +9,14 @@ export function SiteFooter() {
           reservados.
         </p>
         <a
-          href={whatsappUrl()}
+          href={whatsappUrl(
+            "¡Hola M&J! Me gustaría obtener más información sobre sus servicios."
+          )}
           target="_blank"
           rel="noopener noreferrer"
           className="text-neutral-400 transition-colors hover:text-white"
         >
-          WhatsApp {siteConfig.whatsappDisplay}
+          Contáctanos por WhatsApp
         </a>
       </div>
     </footer>
