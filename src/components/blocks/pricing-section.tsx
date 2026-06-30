@@ -98,6 +98,17 @@ const packages = [
   },
 ];
 
+const WHATSAPP_NUMBER = "5491122532761";
+
+function buildWhatsappLink(pkg: (typeof packages)[number]) {
+  const message = pkg.isDemo
+    ? "¡Hola M&J! Me gustaría pedir una *demo* sin compromiso. ¿Cómo seguimos?"
+    : `¡Hola M&J! Me interesa el plan *${pkg.name}* (${pkg.price}${
+        pkg.currency ? ` ${pkg.currency}` : ""
+      }). ¿Me dan más información?`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 const headerContainerVariants = {
@@ -217,9 +228,11 @@ function PricingCard({
         ))}
       </ul>
 
-      <button
-        type="button"
-        className={`w-full cursor-pointer rounded-lg px-3 py-2.5 text-xs font-semibold transition-all duration-300 sm:text-sm ${
+      <a
+        href={buildWhatsappLink(pkg)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`block w-full cursor-pointer rounded-lg px-3 py-2.5 text-center text-xs font-semibold transition-all duration-300 sm:text-sm ${
           pkg.highlighted
             ? "bg-violet-600 text-white hover:bg-violet-500"
             : pkg.isDemo
@@ -228,7 +241,7 @@ function PricingCard({
         }`}
       >
         {pkg.cta}
-      </button>
+      </a>
     </motion.article>
   );
 }
